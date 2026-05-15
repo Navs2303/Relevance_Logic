@@ -1,0 +1,30 @@
+\documentclass{report}
+
+\input{preamble/packages}
+\input{preamble/indecies}
+\input{preamble/environments}
+\input{preamble/my_commands}
+
+\title{Relevance Logic}
+\author{Navin Philip}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{chapter}{-1}
+\input{Chapter 0/Chapter_0_heading}
+\input{Chapter 1/Chapter_1_heading}
+\input{Chapter 2/chapter_2_heading}
+
+\newpage
+\bibliography{references}
+\bibliographystyle{plain}
+
+\newpage
+\printindex[symbs]
+\newpage
+\printindex[defs]
+
+\end{document}

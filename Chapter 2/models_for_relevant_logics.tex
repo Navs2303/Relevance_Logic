@@ -1,0 +1,103 @@
+\section{Models for relevant logics}
+
+These definitions are adapted from \cite{fuhrmann1990models}.
+
+\begin{definition}[Relevant language]
+    The \textit{relevant language}\index[defs]{relevant language} denoted as $\mathcal{L}_{r}$\index[symbs]{$\mathcal{L}_{r}$} is a sentential language defined using a set of propositional variables (usually denoted with $p,q,r,\ldots$).
+    The well-formed formulas (wffs) of this language are given by the rule:
+    $$\phi ::= p \mid \ssim\phi \mid \phi\wedge\psi \mid \phi\vee\psi \mid \phi\to\psi.$$
+\end{definition}
+
+\begin{definition}[Frame]
+    A \textit{frame}\index[defs]{frame} $\F$\index[symbs]{$\F$} is a 4-ruple $(O,K,R,*)$, where $K$ is a non-empty set (of worlds or states), $O\subseteq K$, $R\subseteq K^3$ (used to interpret implication), and $^*:K\to K$ (used to interpret negation).
+    \par Define the relation $\vtr \subseteq K$ where $\vtr = \{(a,b) \mid\text{ there exists } x\in O \text{ such that } Rxab\}$.
+    These frames need to fulfill the following conditions, here $a,b,c\in K$:
+    \begin{enumerate}
+        \item $a\vtr a$ \hfill (identity)
+        \item if $a\vtr b$ and $Rbcd$, then $Racd$ \hfill ($R$-monotonicity)
+        \item if $a\vtr b$ then $b^* \vtr a^*$ \hfill ($\vtr$-inversion)
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Model]
+    A model\index[defs]{model} $\M$\index[symbs]{$\M$} based on a frame $\F$ is a 2-tuple $(\F,V)$ where $V:K\to \mathcal{P}(K)$ is a mapping called a valuation.
+    We may also denote a model as a 5-tuple $(O,K,R,^*,V)$.
+    \par A model must also satisfy the condition that $$\text{if } a\vtr b \text{ and } a\in V(p) \text{ then } b\in V(p).$$
+\end{definition}
+
+\begin{definition}[Satisfaction]
+    Suppose $w$ is a state in a model $\M = (O, K, R, ^*, V)$. We define the notion of a formula $\phi$ being satisfied (or true) in $\M$ at state $w$ as follows:
+    \begin{alignat*}{3}
+        &\mathfrak{M}, w \Vdash p\quad &&\text{iff}\quad&& w\in V(p), \text{where } p\in \PVAR\\
+        &\mathfrak{M}, w \Vdash \ssim\phi\quad &&\text{iff}\quad && \mathfrak{M},w^* \not\Vdash\phi\\
+        &\mathfrak{M}, w \Vdash \phi\wedge\psi\quad &&\text{iff}\quad &&\mathfrak{M},w \Vdash\phi \text{ and } \mathfrak{M},w \Vdash \psi\\
+        &\mathfrak{M}, w \Vdash \phi\vee\psi\quad &&\text{iff}\quad &&\mathfrak{M},w \Vdash\phi \text{ or } \mathfrak{M},w \Vdash \psi\\
+        &\mathfrak{M}, w \Vdash \phi\to\psi\quad &&\text{iff}\quad &&\text{for all } u,v\in W  \text{ if }  Rwuv \text{ and } \M,u\Vdash\phi \text{ then } \mathfrak{M},v \Vdash \psi.
+    \end{alignat*}
+\end{definition}
+
+\begin{definition}
+    A formula $\phi$ is \textit{true in a model} $\M$, denoted as $\M\Vdash\phi$, when for all $w\in O$, $\M,w\Vdash\phi$.\\
+    A formula $\phi$ is \textit{valid in a frame} $\F$, denoted as $\F\Vdash\phi$, if and only if $\phi$ is true in all models based on the frame.
+\end{definition}
+
+\tcr{next def is from \cite{fuhrmann1990models}}
+\begin{definition}
+    A set $\Gamma$ of formulas is $\textit{sound}$ with respect to a class $\C$ if and only if every formula in $\Gamma$ is valid in all frames in $\C$. We den\\
+    Conversely, $\Gamma$ is $\textit{complete}$ with respect to $\C$ just in case every formula is valid in all frames in $\C$ is a member of $\Gamma$.
+\end{definition}
+
+\begin{definition}
+    The logic \textbf{BM} is axiomatised as follows:
+    \begin{enumerate}
+        \item[A1.] $\phi \wedge \psi \to \phi$ \hfill ($\wedge E$)
+        \item[A2.] $\phi \wedge \psi \to \psi$ \hfill ($\wedge E$)
+        \item[A3.] $(\phi \to \psi) \wedge (\psi \to \gamma) \to (\phi \to (\psi\wedge\gamma)$ \hfill ($\wedge C$)
+        \item[A4.] $\phi\to \phi\vee\psi$ \hfill ($\wedge I$)
+        \item[A5.] $\psi\to \phi\vee\psi$ \hfill ($\wedge I$)
+        \item[A6.] $(\phi \to \gamma) \wedge (\psi \to \gamma) \to ((\phi \vee \psi)\to\gamma)$ \hfill ($\vee C$)
+        \item[A7.] $\phi\wedge(\psi\vee\gamma) \to (\phi\wedge\psi)\vee(\phi\wedge\gamma)$ \hfill ($Dist$)
+        \item[A8.] $\sim(\phi\wedge\psi) \to \ssim\phi\,\vee\sim\psi$ \hfill ($DMk$)
+        \item[A9.] $\sim\phi\,\wedge\sim\psi \to \ssim(\phi\vee\psi)$ \hfill ($DMj$)
+        \item[A10.] $\phi\to\phi$ \hfill ($I$)
+        \item[MP.]
+        \begin{tabular}{c}
+             $\phi , \phi \to \psi$\\
+             \hline
+             $\psi$
+        \end{tabular}
+        \item[ADJ.]
+        \begin{tabular}{c}
+             $\phi , \psi$\\
+             \hline
+             $\phi\wedge\psi$
+        \end{tabular}
+    \end{enumerate}
+\end{definition}
+
+\par \textbf{BM} is sound and complete with respect to the class of \tcr{FRM(BM)} of all frames. This logic is very weak and so we can add axioms to our logic. Each of which have a corresponding frame condition.
+
+
+
+\begin{flalign*}
+    & \text{A11.} \quad \sim\ssim \phi \to \phi && w^{**}\vtr w &&& (DNE) \\
+    & \text{A12.} \quad \phi \to \ssim\ssim\phi && w\vtr w^{**} &&& (DNI) \\
+    & \text{A13.} \quad (\phi \to \psi) \wedge (\psi \to \gamma) \to \rrb \phi \to \gamma \rlb&& Ruvw \text{ implies } R^2u(uv)w &&& (WB)\\
+    & \text{A14.} \quad \phi \vee \ssim\phi && w\in O \text{ implies } w^* \vtr w &&& (X)\\
+    & \text{A15.} \quad \rrb \phi \to \ssim\phi \rlb \to \ssim\phi && Rww^*w &&& (Rd)\\
+    & \text{A16.} \quad \rrb \phi \to \psi \rlb \to \rrb \sim\phi\to\ssim\psi \rlb && Ruvw \text{ implies } Ruw^*v^* &&& (Cp)\\
+    & \text{A17.} \quad \rrb\phi\to\psi\rlb \to \rrb\rrb\gamma\to\phi\rlb\to \rrb\gamma\to\psi\rlb\rlb && R^2uvwx \text{ implies } R^2u(vw)x &&& (B)\\
+    & \text{A18.} \quad \rrb\phi\to\psi\rlb \to \rrb \rrb\psi\to\gamma\rlb \to \rrb\phi\to\gamma\rlb \rlb && R^2uvwx \text{ implies } R^2v(uw)x &&& (CB)\\
+    & \text{A19.} \quad (\phi\to \rrb\phi\to\psi\rlb) \to \rrb\phi\to\psi\rlb && Ruvw \text{ implies } R^2uvvw &&& (W)\\
+    & \text{A20.} \quad (\phi\to \rrb\psi\to\gamma\rlb) \to (\psi\to \rrb\phi\to\gamma\rlb) && R^2uvwx \text{ implies } R^2uwvx &&& (C)\\
+    & \text{A21.} \quad \phi\to \rrb\phi\to\phi\rlb && Ruvw \text{ implies } u\vtr w \text{ or } v\vtr w &&& (M)\\
+    & \text{A22.} \quad \phi\vee(\phi\to\psi) && w\in O \text{ and } u\vtr v \text{ implies } u\vtr w &&& (M3)\\
+    & \text{A23.} \quad \phi\to \rrb\psi\to\phi\rlb && Ruvw \text{ implies } u\vtr w  &&&  (K)\\
+    & \text{ER.} \quad
+        \begin{tabular}{c}
+             $\phi , \phi \to \psi$\\
+             \hline
+             $\psi$
+        \end{tabular}
+        && \text{there exists } x\in O \text{ and } Raxa
+\end{flalign*}
